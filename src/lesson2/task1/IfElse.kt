@@ -3,6 +3,7 @@
 package lesson2.task1
 
 import lesson1.task1.discriminant
+import lesson1.task1.sqr
 import kotlin.math.max
 import kotlin.math.sqrt
 
@@ -68,7 +69,8 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
-fun ageDescription(age: Int): String = TODO()
+fun ageDescription(age: Int): Nothing =TODO()
+
 
 /**
  * Простая (2 балла)
@@ -81,7 +83,11 @@ fun timeForHalfWay(
     t1: Double, v1: Double,
     t2: Double, v2: Double,
     t3: Double, v3: Double
-): Double = TODO()
+): Double {
+    val s = v1 * t1 + v2 * t2 + v3 * t3
+    if (v1 * t1 > s / 2) return s / (2 * v1) else if (v1 * t1 + v2 * t2 > s / 2) return t1 + ((s / 2 - v1 * t1) / v2) else return t1 + t2 + ((s / 2 - v1 * t1 - v2 * t2) / v3)
+
+}
 
 /**
  * Простая (2 балла)
@@ -122,8 +128,11 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
-
+fun triangleKind(a: Double, b: Double, c: Double) : Int {
+    if (a >= b + c || b >= a + c || c >= a + b) return -1 else
+        if (sqr(a) == sqr(b) + sqr(c) || sqr(b) == sqr(a) + sqr(c) || sqr(c) == sqr(b) + sqr(a)) return 1 else
+        if (sqr(a) > sqr(b) + sqr(c) || sqr(b) > sqr(a) + sqr(c) || sqr(c) > sqr(b) + sqr(a)) return 2 else return 0
+}
 /**
  * Средняя (3 балла)
  *
@@ -132,4 +141,4 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = TODO()
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = TODO ()
