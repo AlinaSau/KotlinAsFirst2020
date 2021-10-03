@@ -3,6 +3,8 @@
 package lesson2.task2
 
 import lesson1.task1.sqr
+import java.lang.Math.min
+import java.lang.Double.min as min1
 
 /**
  * Пример
@@ -19,7 +21,7 @@ fun pointInsideCircle(x: Double, y: Double, x0: Double, y0: Double, r: Double) =
  * Определить, счастливое ли заданное число, вернуть true, если это так.
  */
 fun isNumberHappy(number: Int): Boolean {
-    if ((number % 10) + ((number / 10) % 10) == ((number / 100) % 10) + (number / 1000)) return true else return false
+    return (number % 10) + ((number / 10) % 10) == ((number / 100) % 10) + (number / 1000)
 }
 
 /**
@@ -61,6 +63,17 @@ fun circleInside(
  * кирпич 4 х 4 х 4 пройдёт через отверстие 4 х 4.
  * Вернуть true, если кирпич пройдёт
  */
+fun min3(l: Int, m: Int, n: Int): Int = if (l < m && l < n) l else if (m < l && m < n) m else n
+
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
-    if (((a <= s && b <= r) || (a <= r && b <= s)) || ((b <= s && c <= r) || (b <= r && c <= s)) || ((a <= s && c <= r) || (a <= r && c <= s))) return true else return false
+    val x4: Int
+    val x1 = min3(a, b, c) // наименьшая сторона кирпича
+    val x2: Int = if (x1 == a) kotlin.math.min(b, c) else if (x1 == b) kotlin.math.min(a, c) else c // средняя по величине сторона кирпича
+    val x3 = kotlin.math.min(r, s) // минимальная сторона стены
+    x4 = when (x3) {  // вторая сторона стены
+        r -> s
+        else -> r
+    }
+    return x1 <= x3 && x2 <= x4
 }
+
