@@ -2,6 +2,8 @@
 
 package lesson3.task1
 
+import lesson1.task1.sqr
+import kotlin.math.pow
 import kotlin.math.sqrt
 
 // Урок 3: циклы
@@ -138,7 +140,15 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Int = TODO()
+fun revert(n: Int): Int {
+    var n = n
+    var p = 0
+    while (n != 0) {
+        p = p * 10 + n % 10
+        n /= 10
+    }
+    return (p)
+}
 
 /**
  * Средняя (3 балла)
@@ -159,7 +169,18 @@ fun isPalindrome(n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun hasDifferentDigits(n: Int): Boolean = TODO()
+fun hasDifferentDigits(n: Int): Boolean {
+    var n = n
+    val k = n % 10
+    n /= 10
+    while (n != 0) {
+        if (n % 10 != k) {
+            return true
+            break
+        } else n /= 10
+    }
+    return n != 0
+}
 
 /**
  * Средняя (4 балла)
@@ -192,7 +213,10 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int): Double = TODO()
+
+// создать функцию, которая определяет количество цифр в квадрате, создать число до n^2 по условию и получить ответ
+
 
 /**
  * Сложная (5 баллов)
@@ -204,3 +228,6 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun fibSequenceDigit(n: Int): Int = TODO()
+
+
+
