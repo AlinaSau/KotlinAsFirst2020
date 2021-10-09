@@ -71,7 +71,7 @@ fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
     val x2: Int = when (x1) {
         a -> kotlin.math.min(b, c)
         b -> kotlin.math.min(a, c)
-        else -> c
+        else -> kotlin.math.min(a, b)
     } // средняя по величине сторона кирпича
     val x3 = kotlin.math.min(r, s) // минимальная сторона стены
     x4 = when (x3) {  // вторая сторона стены
