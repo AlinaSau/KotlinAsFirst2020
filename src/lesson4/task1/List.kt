@@ -241,7 +241,117 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun roman(n: Int): String = TODO()
+fun roman(n: Int): String {
+    var s = ""
+    var n = n
+    do {
+        if (n / 1000 != 0) {
+            var a = n / 1000
+            while (a != 0) {
+                s += "M"
+                n -= 1000
+                a -= 1
+            }
+        }
+        if (n / 900 != 0) {
+            var a = n / 900
+            while (a != 0) {
+                s += "CM"
+                n -= 900
+                a -= 1
+            }
+        }
+        if (n / 500 != 0) {
+            var a = n / 500
+            while (a != 0) {
+                s += "D"
+                n -= 500
+                a -= 1
+            }
+        }
+        if (n / 400 != 0) {
+            var a = n / 400
+            while (a != 0) {
+                s += "CD"
+                n -= 400
+                a -= 1
+            }
+        }
+        if (n / 100 != 0) {
+            var a = n / 100
+            while (a != 0) {
+                s += "C"
+                n -= 100
+                a -= 1
+            }
+        }
+        if (n / 90 != 0) {
+            var a = n / 90
+            while (a != 0) {
+                s += "XC"
+                n -= 90
+                a -= 1
+            }
+        }
+        if (n / 50 != 0) {
+            var a = n / 50
+            while (a != 0) {
+                s += "L"
+                n -= 50
+                a -= 1
+            }
+        }
+        if (n / 40 != 0) {
+            var a = n / 40
+            while (a != 0) {
+                s += "XL"
+                n -= 40
+                a -= 1
+            }
+        }
+        if (n / 10 != 0) {
+            var a = n / 10
+            while (a != 0) {
+                s += "X"
+                n -= 10
+                a -= 1
+            }
+        }
+        if (n / 9 != 0) {
+            var a = n / 9
+            while (a != 0) {
+                s += "IX"
+                n -= 9
+                a -= 1
+            }
+        }
+        if (n / 5 != 0) {
+            var a = n / 5
+            while (a != 0) {
+                s += "V"
+                n -= 5
+                a -= 1
+            }
+        }
+        if (n / 4 != 0) {
+            var a = n / 4
+            while (a != 0) {
+                s += "IV"
+                n -= 4
+                a -= 1
+            }
+        }
+        if (n / 1 != 0) {
+            var a = n / 1
+            while (a != 0) {
+                s += "I"
+                n -= 1
+                a -= 1
+            }
+        }
+    } while (n != 0)
+    return (s)
+}
 
 /**
  * Очень сложная (7 баллов)
@@ -251,7 +361,7 @@ fun roman(n: Int): String = TODO()
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
 fun russian(n: Int): String {
-    var s =""
+    var s = ""
     val a1 = n / 100000
     val a2 = (n / 10000) % 10
     val a3 = (n / 1000) % 10
@@ -310,7 +420,7 @@ fun russian(n: Int): String {
         }
     }
     when (a4) {
-        0 -> s +=""
+        0 -> s += ""
         1 -> s += "сто "
         2 -> s += "двести "
         3 -> s += "триста "
