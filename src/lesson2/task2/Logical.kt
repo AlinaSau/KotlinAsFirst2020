@@ -68,7 +68,11 @@ fun min3(l: Int, m: Int, n: Int): Int = if (l <= m && l <= n) l else if (m <= l 
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
     val x4: Int
     val x1 = min3(a, b, c) // наименьшая сторона кирпича
-    val x2: Int = if (x1 == a) kotlin.math.min(b, c) else if (x1 == b) kotlin.math.min(a, c) else c // средняя по величине сторона кирпича
+    val x2: Int = when (x1) {
+        a -> kotlin.math.min(b, c)
+        b -> kotlin.math.min(a, c)
+        else -> c
+    } // средняя по величине сторона кирпича
     val x3 = kotlin.math.min(r, s) // минимальная сторона стены
     x4 = when (x3) {  // вторая сторона стены
         r -> s
