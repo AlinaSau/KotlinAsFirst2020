@@ -147,7 +147,7 @@ fun revert(n: Int): Int {
         p = p * 10 + n % 10
         n /= 10
     }
-    return (p)
+    return p
 }
 
 /**
@@ -176,7 +176,6 @@ fun hasDifferentDigits(n: Int): Boolean {
     while (n != 0) {
         if (n % 10 != k) {
             return true
-            break
         } else n /= 10
     }
     return n != 0
@@ -213,9 +212,8 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Double = TODO()
+fun squareSequenceDigit(n: Int): Int = TODO()
 
-// создать функцию, которая определяет количество цифр в квадрате, создать число до n^2 по условию и получить ответ
 
 
 /**
