@@ -178,7 +178,7 @@ fun hasDifferentDigits(n: Int): Boolean {
             return true
         } else n /= 10
     }
-    return n != 0
+    return false
 }
 
 /**
