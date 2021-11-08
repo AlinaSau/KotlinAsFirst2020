@@ -63,21 +63,19 @@ fun circleInside(
  * кирпич 4 х 4 х 4 пройдёт через отверстие 4 х 4.
  * Вернуть true, если кирпич пройдёт
  */
-fun min3(l: Int, m: Int, n: Int): Int = if (l <= m && l <= n) l else if (m <= l && m <= n) m else n
 
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
-    val x4: Int
-    val x1 = min3(a, b, c) // наименьшая сторона кирпича
-    val x2: Int = when (x1) {
+    val smallestBrick = minOf(a, b, c)
+    val middlek: Int = when (smallestBrick) {
         a -> kotlin.math.min(b, c)
         b -> kotlin.math.min(a, c)
         else -> kotlin.math.min(a, b)
-    } // средняя по величине сторона кирпича
-    val x3 = kotlin.math.min(r, s) // минимальная сторона стены
-    x4 = when (x3) {  // вторая сторона стены
+    }
+    val smallestWall = kotlin.math.min(r, s)
+    val wall = when (smallestWall) {
         r -> s
         else -> r
     }
-    return x1 <= x3 && x2 <= x4 || x1 <= x4 && x2 <= x3
+    return smallestBrick <= smallestWall && middlek <= wall || smallestBrick <= wall && middlek <= smallestWall
 }
 
