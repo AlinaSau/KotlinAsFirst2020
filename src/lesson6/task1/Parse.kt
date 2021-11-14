@@ -102,12 +102,13 @@ fun dateDigitToStr(digital: String): String = TODO()
  *
  * PS: Дополнительные примеры работы функции можно посмотреть в соответствующих тестах.
  */
-fun flattenPhoneNumber(phone: String): String = if (!phone.contains(Regex("""\( *\)""")) &&
-    !phone.matches(Regex("""\+ ?\d""")) &&
-    phone.matches(Regex("""(\+? *\d[- \d]*(\([-\d ]+\)[-\d ]+)?)"""))
-)
-    phone.filter { it !in " " && it !in "(" && it !in ")" && it !in "-" }
-else ""
+fun flattenPhoneNumber(phone: String): String =
+    if (!phone.contains(Regex("""\( *\)""")) &&
+        !phone.matches(Regex("""\+ ?\d""")) &&
+        phone.matches(Regex("""(\+? *\d[- \d]*(\([-\d ]+\)[-\d ]+)?)"""))
+    )
+        phone.filter { it !in " " && it !in "(" && it !in ")" && it !in "-" }
+    else ""
 
 /**
  * Средняя (5 баллов)
@@ -119,7 +120,18 @@ else ""
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
-fun bestLongJump(jumps: String): Int = TODO()
+fun bestLongJump(jumps: String): Int {
+    var result = -1
+    if (jumps.contains(Regex("""[^\d\s\-%]""")) ||
+        jumps.contains(Regex("""([%\-])(%|-|\d)|(%|-|\d)([%\-])"""))
+    )
+        return -1
+    val fragments = Regex("""[\s\-%]""").split(jumps)
+    for (fragment in fragments)
+        if (fragment.isNotEmpty() && fragment.toInt() > result)
+            result = fragment.toInt()
+    return result
+}
 
 /**
  * Сложная (6 баллов)
