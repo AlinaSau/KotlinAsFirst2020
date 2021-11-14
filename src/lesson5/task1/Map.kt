@@ -197,7 +197,7 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
     var price = 0.0
     var result: String? = null
     for ((key) in stuff)
-        if ((stuff[key]?.first == kind) && ((price == 0.0) || (price > (stuff[key]?.second ?: return null)))) {
+        if ((stuff[key]?.first == kind) && ((price == 0.0) )) {
             price = (stuff[key]?.second ?: return null)
             result = key
         }
@@ -227,7 +227,7 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
  * Например:
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
-fun extractRepeats(list: List<String>): Map<String, Int> = TODO()
+fun extractRepeats(list: List<String>): Map<String, Int> = list.groupingBy { it }.eachCount().filter { it.value > 1 }
 
 /**
  * Средняя (3 балла)
