@@ -99,10 +99,12 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
  *
  * Исключения (жюри, брошюра, парашют) в рамках данного задания обрабатывать не нужно
  *
+ * жИ шИ ЖИ Ши ЖА шА Жа ша жу шу жу щу ча шу щу ща жа жи жи жу чу ча
  */
 fun sibilants(inputName: String, outputName: String) {
     TODO()
 }
+
 
 /**
  * Средняя (15 баллов)
@@ -122,7 +124,21 @@ fun sibilants(inputName: String, outputName: String) {
  *
  */
 fun centerFile(inputName: String, outputName: String) {
-    TODO()
+    val text = File(outputName).bufferedWriter()
+    var maxline = 0
+    for (line in File(inputName).readLines())
+        if (line.trim().length > maxline)
+            maxline = line.trim().length
+    for (line in File(inputName).readLines()) {
+        var sr = (maxline - line.trim().length) / 2
+        while (sr > 0) {
+            text.write(" ")
+            sr -= 1
+        }
+        text.write(line.trim())
+        text.newLine()
+    }
+    text.close()
 }
 
 /**
