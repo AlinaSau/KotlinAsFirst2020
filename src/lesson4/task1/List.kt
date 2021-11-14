@@ -182,15 +182,24 @@ fun factorize(n: Int): List<Int> {
     var number = n
     val result = mutableListOf<Int>()
     var a = 2
-    while ((number > 1) && (number != a - 1)) {
-        if (number % a == 0) {
-            result.add(a)
-            number /= a
-            a--
+    while (number != 1 && a > 0) {
+        if (number % a == 0 && primeNumber(a)) {
+            while (number % a == 0) {
+                number /= a
+                result.add(a)
+            }
         }
-        a++
+        a += 1
     }
     return result
+}
+
+fun primeNumber(n: Int): Boolean {
+    var del = 1
+    for (i in 2 until n) {
+        if (n % i == 0) del += 1
+    }
+    return del == 1
 }
 
 /**
@@ -260,13 +269,14 @@ fun roman(n: Int): String {
     val Roman = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
     var number = n
     var result = ""
-    for (i in Normal.indices - 1)
-        while (number > 0) {
+    while (number != 0) {
+        for (i in Normal.indices) {
             while (number - Normal[i] >= 0) {
                 result += Roman[i]
                 number -= Normal[i]
             }
         }
+    }
     return result
 }
 
