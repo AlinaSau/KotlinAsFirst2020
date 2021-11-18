@@ -183,7 +183,7 @@ fun factorize(n: Int): List<Int> {
     val result = mutableListOf<Int>()
     var a = 2
     while (number != 1 && a > 0) {
-        if (number % a == 0 && primeNumber(a)) {
+        if (number % a == 0) {
             while (number % a == 0) {
                 number /= a
                 result.add(a)
@@ -194,13 +194,6 @@ fun factorize(n: Int): List<Int> {
     return result
 }
 
-fun primeNumber(n: Int): Boolean {
-    var del = 1
-    for (i in 2 until n) {
-        if (n % i == 0) del += 1
-    }
-    return del == 1
-}
 
 /**
  * Сложная (4 балла)
