@@ -65,11 +65,12 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
 fun deleteMarked(inputName: String, outputName: String) {
     val text = File(outputName).bufferedWriter()
     for (line in File(inputName).readLines()) {
-        if (line.isEmpty()) text.newLine() else {
-            if (line.startsWith("_")) text.write("") else {
-                text.write(line)
-                text.newLine()
-            }
+        if (line.isEmpty()) {
+            text.newLine()
+        } else if (line.startsWith("_"))
+        else {
+            text.write(line)
+            text.newLine()
         }
     }
     text.close()
@@ -126,9 +127,10 @@ fun sibilants(inputName: String, outputName: String) {
 fun centerFile(inputName: String, outputName: String) {
     val text = File(outputName).bufferedWriter()
     var maxline = 0
-    for (line in File(inputName).readLines())
+    for (line in File(inputName).readLines()) {
         if (line.trim().length > maxline)
             maxline = line.trim().length
+    }
     for (line in File(inputName).readLines()) {
         var sr = (maxline - line.trim().length) / 2
         while (sr > 0) {
