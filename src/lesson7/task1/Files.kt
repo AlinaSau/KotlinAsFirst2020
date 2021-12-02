@@ -3,6 +3,7 @@
 package lesson7.task1
 
 import java.io.File
+import kotlin.math.abs
 
 // Урок 7: работа с файлами
 // Урок интегральный, поэтому его задачи имеют сильно увеличенную стоимость
@@ -171,7 +172,36 @@ fun centerFile(inputName: String, outputName: String) {
  * 8) Если входной файл удовлетворяет требованиям 1-7, то он должен быть в точности идентичен выходному файлу
  */
 fun alignFileByWidth(inputName: String, outputName: String) {
-    TODO()
+    var lineMax = 0
+    val text = File(outputName).bufferedWriter()
+    for (line in File(inputName).readLines()) {
+        val lineChange = line.replace(Regex(" +"), " ")
+        if (lineChange.trim().length > lineMax)
+            lineMax = lineChange.trim().length
+    }
+    for (line in File(inputName).readLines()) {
+        val lineChange = line.replace(Regex(" +"), " ")
+        val part = Regex("""\s""").split(lineChange.trim()).toMutableList()
+        if (part.size == 1) {
+            text.write(lineChange.trim())
+            text.newLine()
+        } else if (line.isNotBlank()) {
+            var temp = lineMax - lineChange.trim().length
+            var i = 0
+            while (temp > 0) {
+                part[i] += " "
+                if (i < part.size - 2)
+                    i += 1
+                else
+                    i = 0
+                temp -= 1
+            }
+            text.write(part.joinToString(" "))
+            text.newLine()
+        } else
+            text.newLine()
+    }
+    text.close()
 }
 
 /**
@@ -478,5 +508,7 @@ fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
 fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
     TODO()
 }
+
+
 
 
