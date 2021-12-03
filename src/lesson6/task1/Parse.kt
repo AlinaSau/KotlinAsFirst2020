@@ -210,7 +210,7 @@ fun fromRoman(roman: String): Int {
     val Roman = listOf("CM", "CD", "XC", "XL", "IX", "IV", "I", "V", "X", "L", "C", "D", "M")
     var number = roman
     var result = 0
-    if (number.isEmpty() || number == "0") return 0
+    if (number.isEmpty()) return -1
     for (i in Roman.indices) {
         var s = 0
         while (number.contains(Roman[i])) {
