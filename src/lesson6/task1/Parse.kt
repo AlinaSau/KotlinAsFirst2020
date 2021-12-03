@@ -219,7 +219,7 @@ fun fromRoman(roman: String): Int {
         }
         result += Normal[i] * s
     }
-    return if (result == 0) -1 else
+    return if (result == 0 || number.isNotEmpty()) -1 else
         result
 }
 
