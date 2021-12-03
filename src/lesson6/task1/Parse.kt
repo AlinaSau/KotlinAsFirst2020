@@ -2,6 +2,10 @@
 
 package lesson6.task1
 
+import java.lang.IllegalArgumentException
+import kotlin.math.abs
+import kotlin.system.exitProcess
+
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
 // Рекомендуемое количество баллов = 11
@@ -47,7 +51,16 @@ fun timeSecondsToStr(seconds: Int): String {
 /**
  * Пример: консольный ввод
  */
+//Хлеб 20руб; Сосиски 45руб 30коп; Пакет 90коп
+//Зенит Спартак 5:0
 fun main() {
+    val inputData = "4; 5; 6; 8; 8; 6; 3; 4; 5"
+    //? -> {0, 1}
+    //* -> {0, +inf}
+    //{1, }
+    //    if (!Regex("""(\d+; )*\d+""").matches(inputData)) return
+    //    val ans = inputData.split("; ").map { it.toInt() }.zipWithNext().filter { abs(it.first - it.second) > 1 }
+    //    exitProcess(0)
     println("Введите время в формате ЧЧ:ММ:СС")
     val line = readLine()
     if (line != null) {
@@ -192,7 +205,24 @@ fun mostExpensive(description: String): String = TODO()
  *
  * Вернуть -1, если roman не является корректным римским числом
  */
-fun fromRoman(roman: String): Int = TODO()
+fun fromRoman(roman: String): Int {
+    val Normal = listOf(900, 400, 90, 40, 9, 4, 1, 5, 10, 50, 100, 500, 1000)
+    val Roman = listOf("CM", "CD", "XC", "XL", "IX", "IV", "I", "V", "X", "L", "C", "D", "M")
+    var number = roman
+    var result = 0
+    if (number.isEmpty() || number == "0") return 0
+    for (i in Roman.indices) {
+        var s = 0
+        while (number.contains(Roman[i])) {
+            s += 1
+            number = number.replaceFirst(Roman[i], "")
+        }
+        result += Normal[i] * s
+    }
+    return if (result == 0) -1 else
+        result
+}
+
 
 /**
  * Очень сложная (7 баллов)
@@ -231,3 +261,4 @@ fun fromRoman(roman: String): Int = TODO()
  *
  */
 fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> = TODO()
+
