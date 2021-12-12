@@ -180,6 +180,7 @@ fun alignFileByWidth(inputName: String, outputName: String) {
             lineMax = lineChange.trim().length
     }
     for (line in File(inputName).readLines()) {
+<<<<<<< HEAD
         val lineChange = line.replace(Regex(" +"), " ")
         val part = Regex("""\s""").split(lineChange.trim()).toMutableList()
         if (part.size == 1) {
@@ -195,6 +196,68 @@ fun alignFileByWidth(inputName: String, outputName: String) {
                 else
                     i = 0
                 temp -= 1
+||||||| parent of 841211f (Исправление комментариев к 4, 5 и 7 урокам)
+        var strForHelp = "  " + line
+        var listSplit = strForHelp.split(Regex(""" +"""))
+        var lstStr = mutableListOf<String>()
+        lstStr = listSplit.toMutableList()
+        if (lstStr[lstStr.lastIndex] == "")
+            lstStr.removeAt(lstStr.lastIndex)
+
+        if ((!(line.isEmpty())) && (lstStr.size > 2)) {
+            if (countLen(lstStr) + lstStr.size - 2 < maxLen) {
+                writer.write(lstStr[1])
+                var countSpace = maxLen - (countLen(lstStr) + lstStr.size - 2)
+                var inOnePass = (Math.floor((countSpace / (lstStr.size - 2)).toDouble())).toInt()
+                var remain = countSpace % (lstStr.size - 2)
+                for (i in 2..lstStr.lastIndex) {
+                    if (remain > 0) {
+                        for (j in 1..(inOnePass + 1 + 1))
+                            writer.write(" ")
+                        remain -= 1
+                    } else {
+                        for (j in 1..(inOnePass + 1))
+                            writer.write(" ")
+                    }
+                    writer.write(lstStr[i])
+                }
+            } else {
+                writer.write(lstStr[1])
+                for (i in 2..lstStr.lastIndex) {
+                    writer.write(" ")
+                    writer.write(lstStr[i])
+                }
+=======
+        var strForHelp = "  " + line
+        var listSplit = strForHelp.split(Regex(""" +"""))
+        var lstStr = listSplit.toMutableList()
+        if (lstStr[lstStr.lastIndex] == "")
+            lstStr.removeAt(lstStr.lastIndex)
+
+        if ((!(line.isEmpty())) && (lstStr.size > 2)) {
+            if (countLen(lstStr) + lstStr.size - 2 < maxLen) {
+                writer.write(lstStr[1])
+                var countSpace = maxLen - (countLen(lstStr) + lstStr.size - 2)
+                var inOnePass = (Math.floor((countSpace / (lstStr.size - 2)).toDouble())).toInt()
+                var remain = countSpace % (lstStr.size - 2)
+                for (i in 2..lstStr.lastIndex) {
+                    if (remain > 0) {
+                        for (j in 1..(inOnePass + 1 + 1))
+                            writer.write(" ")
+                        remain -= 1
+                    } else {
+                        for (j in 1..(inOnePass + 1))
+                            writer.write(" ")
+                    }
+                    writer.write(lstStr[i])
+                }
+            } else {
+                writer.write(lstStr[1])
+                for (i in 2..lstStr.lastIndex) {
+                    writer.write(" ")
+                    writer.write(lstStr[i])
+                }
+>>>>>>> 841211f (Исправление комментариев к 4, 5 и 7 урокам)
             }
             text.write(part.joinToString(" "))
             text.newLine()
