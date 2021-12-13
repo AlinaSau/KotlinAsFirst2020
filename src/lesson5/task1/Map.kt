@@ -205,13 +205,11 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
 fun canBuildFrom(chars: List<Char>, word: String): Boolean {
-    var result = word
-    for (a in chars)
-        if (result.contains(a))
-            while (result.contains(a))
-                result = result.substringBefore(a) + result.substringAfter(a)
-
-    return result == ""
+    if (chars.isNullOrEmpty()) return false
+    val list = mutableListOf<Char>()
+    for (i in word) list.add(i)
+    for (i in chars) while (list.contains(i)) list.remove(i)
+    return list.isNullOrEmpty()
 }
 
 
@@ -296,7 +294,12 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   findSumOfTwo(listOf(1, 2, 3), 4) -> Pair(0, 2)
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
-fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> = TODO()
+fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
+    for (i in list) {
+        if (list.contains(number - i) && (i != number - i)) return Pair(list.indexOf(i), list.indexOf(number - i))
+    }
+    return Pair(-1, -1)
+}
 
 /**
  * Очень сложная (8 баллов)
@@ -320,3 +323,4 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> = TODO()
  *   ) -> emptySet()
  */
 fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> = TODO()
+
