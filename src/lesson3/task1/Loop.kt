@@ -82,7 +82,17 @@ fun digitNumber(n: Int): Int = TODO()
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = TODO()
+fun fib(n: Int): Int {
+    var a = 1
+    var b = 1
+    var c = 1
+    for (i in 3..n) {
+        c = a + b
+        b = a
+        a = c
+    }
+    return c
+}
 
 /**
  * Простая (2 балла)
@@ -212,8 +222,27 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
 
+fun kol(n: Int): Int {
+    var res = 0
+    var n = n
+    while (n != 0) {
+        res += 1
+        n /= 10
+    }
+    return res
+}
+
+fun squareSequenceDigit(n: Int): Int {
+    if (n == 1) return 1
+    var len = 1
+    var i = 1
+    while (len < n) {
+        i += 1
+        len += kol(sqr(i))
+    }
+    return if (len == n) sqr(i) % 10 else sqr(i) / 10.0.pow((len - n).toDouble()).toInt() % 10
+}
 
 
 /**
@@ -225,7 +254,18 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
 
-
+fun fibSequenceDigit(n: Int): Int {
+    if (n == 1 || n == 2) return 1
+    var a = 1
+    var b = 1
+    var len = 2
+    while (len < n) {
+        var c = a + b
+        a = b
+        b = c
+        len += kol(b)
+    }
+    return if (len == n) b % 10 else b / 10.0.pow((len - n).toDouble()).toInt() % 10
+}
 
