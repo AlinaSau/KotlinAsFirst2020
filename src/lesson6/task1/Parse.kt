@@ -2,10 +2,6 @@
 
 package lesson6.task1
 
-import java.lang.IllegalArgumentException
-import kotlin.math.abs
-import kotlin.system.exitProcess
-
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
 // Рекомендуемое количество баллов = 11
@@ -168,7 +164,23 @@ fun bestHighJump(jumps: String): Int = TODO()
  * Вернуть значение выражения (6 для примера).
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
-fun plusMinus(expression: String): Int = TODO()
+fun plusMinus(expression: String): Int {
+    if (!"$expression + ".matches(Regex("""(\d+ [+-] )+"""))) {
+        throw IllegalArgumentException(expression)
+    }
+    var str = expression.split(" ")
+    var result = str[0].toInt()
+    var i = 1
+    while (i < str.size) {
+        when (str[i]) {
+            "+" -> result += str[i + 1].toInt()
+            "-" -> result -= str[i + 1].toInt()
+        }
+        i += 1
+    }
+    return result
+}
+
 
 /**
  * Сложная (6 баллов)
