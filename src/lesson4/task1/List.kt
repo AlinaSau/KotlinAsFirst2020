@@ -258,19 +258,19 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
 fun roman(n: Int): String {
-    val Normal = listOf(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
-    val Roman = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
+    val russian = listOf(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
+    val roman = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
     var number = n
-    var result = ""
+    var result = StringBuilder()
     while (number != 0) {
-        for (i in Normal.indices) {
-            while (number - Normal[i] >= 0) {
-                result += Roman[i]
-                number -= Normal[i]
+        for (i in russian.indices) {
+            while (number - russian[i] >= 0) {
+                result.append((roman[i]))
+                number -= russian[i]
             }
         }
     }
-    return result
+    return result.toString()
 }
 
 
