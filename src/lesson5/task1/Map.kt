@@ -207,6 +207,7 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
 fun canBuildFrom(chars: List<Char>, word: String): Boolean {
     if (word == "") return true
     if (chars.isEmpty() || word.isEmpty()) return false
+    if (word.equals(chars)) return true
     val list = mutableListOf<Char>()
     for (i in word) list.add(i)
     for (i in chars) while (list.contains(i)) list.remove(i)
@@ -300,7 +301,7 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
     for (i in 0..list.lastIndex) {
         if (numInd.containsKey(number - list[i])) {
             return Pair(numInd.getValue(number - list[i]), i)
-        } else numInd.put(list[i], i)
+        } else numInd[list[i]] = i
     }
     return Pair(-1, -1)
 }
