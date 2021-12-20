@@ -98,7 +98,9 @@ fun dateStrToDigit(str: String): String = TODO()
 fun dateDigitToStr(digital: String): String {
     var parts = digital.split(".")
     if (!digital.matches("""\d+\.\d+\.\d+""".toRegex())) return ""
-    if (parts[1].toInt() % 2 == 1 && parts[0].toInt() >= 32 || parts[1].toInt() % 2 == 0 && parts[0].toInt() >= 31) return ""
+    if (((parts[1].toInt() % 2 == 1 || parts[1].toInt() == 12) && parts[0].toInt() >= 32) ||
+        (parts[1].toInt() != 12 && parts[1].toInt() % 2 == 0 && parts[0].toInt() >= 31)
+    ) return ""
     if (parts[0].toInt() >= 32 || (parts[1] == "02" && parts[0].toInt() >= 29) || parts[1] == "00" || parts[1].toInt() >= 13)
         return ""
     var result = StringBuilder()
@@ -117,7 +119,7 @@ fun dateDigitToStr(digital: String): String {
         parts[1] == "11" -> result.append(" ноября ", parts[2])
         parts[1] == "12" -> result.append(" декабря ", parts[2])
     }
-return result.toString()
+    return result.toString()
 }
 
 /**
