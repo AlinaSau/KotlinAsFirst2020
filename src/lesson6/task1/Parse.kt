@@ -98,8 +98,10 @@ fun dateStrToDigit(str: String): String = TODO()
 fun dateDigitToStr(digital: String): String {
     var parts = digital.split(".")
     if (!digital.matches("""\d+\.\d+\.\d+""".toRegex())) return ""
-    if (((parts[1].toInt() % 2 == 1 || parts[1].toInt() == 12) && parts[0].toInt() >= 32) ||
-        (parts[1].toInt() != 12 && parts[1].toInt() % 2 == 0 && parts[0].toInt() >= 31)
+    if (((parts[1].toInt() % 2 == 1 || parts[1].toInt() == 12 || parts[1].toInt() == 10 || parts[1].toInt() == 8 &&
+                parts[1].toInt() != 11 && parts[1].toInt() != 9) && parts[0].toInt() >= 32) ||
+        ((parts[1].toInt() != 12 && parts[1].toInt() != 10 && parts[1].toInt() != 8 && parts[1].toInt() % 2 == 0 ||
+                parts[1].toInt() == 9 || parts[1].toInt() == 10) && parts[0].toInt() >= 31)
     ) return ""
     if (parts[0].toInt() >= 32 || (parts[1] == "02" && parts[0].toInt() >= 29) || parts[1] == "00" || parts[1].toInt() >= 13)
         return ""
