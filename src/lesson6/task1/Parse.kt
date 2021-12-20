@@ -95,7 +95,32 @@ fun dateStrToDigit(str: String): String = TODO()
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String = TODO()
+fun dateDigitToStr(digital: String): String {
+    var parts = digital.split(".")
+    println(parts[0])
+    println(parts[1])
+    println(parts[2])
+    if (!digital.matches("""\d+\.\d+\.\d+""".toRegex())) return ""
+    if (parts[0].toInt() >= 32 || (parts[1] == "02" && parts[0].toInt() >= 29) || parts[1] == "00")
+        return ""
+    var result = StringBuilder()
+    result.append(parts[0].toInt())
+    when {
+        parts[1] == "01" -> result.append(" января ", parts[2])
+        parts[1] == "02" -> result.append(" февраля ", parts[2])
+        parts[1] == "03" -> result.append(" марта ", parts[2])
+        parts[1] == "04" -> result.append(" апреля ", parts[2])
+        parts[1] == "05" -> result.append(" мая ", parts[2])
+        parts[1] == "06" -> result.append(" июня ", parts[2])
+        parts[1] == "07" -> result.append(" июля ", parts[2])
+        parts[1] == "08" -> result.append(" августа ", parts[2])
+        parts[1] == "09" -> result.append(" сентября ", parts[2])
+        parts[1] == "10" -> result.append(" октября ", parts[2])
+        parts[1] == "11" -> result.append(" ноября ", parts[2])
+        parts[1] == "12" -> result.append(" декабря ", parts[2])
+    }
+return result.toString()
+}
 
 /**
  * Средняя (4 балла)
@@ -111,13 +136,13 @@ fun dateDigitToStr(digital: String): String = TODO()
  *
  * PS: Дополнительные примеры работы функции можно посмотреть в соответствующих тестах.
  */
-fun flattenPhoneNumber(phone: String): String =
-    if (!phone.contains(Regex("""\( *\)""")) &&
-        !phone.matches(Regex("""\+ ?\d""")) &&
-        phone.matches(Regex("""(\+? *\d[- \d]*(\([-\d ]+\)[-\d ]+)?)"""))
-    )
-        phone.filter { it !in " " && it !in "(" && it !in ")" && it !in "-" }
-    else ""
+fun flattenPhoneNumber(phone: String): String {
+    if (phone.contains(Regex("""\( *\)""")) ||
+        phone.matches(Regex("""\+ ?\d""")) ||
+        !phone.matches(Regex("""(\+? *\d[- \d]*(\([-\d ]+\)[-\d ]+)?)"""))
+    ) return ""
+    return phone.filterNot { it in " " || it in "-" || it in "(" || it in ")" }
+}
 
 /**
  * Средняя (5 баллов)
@@ -136,9 +161,10 @@ fun bestLongJump(jumps: String): Int {
     )
         return -1
     val fragments = Regex("""[\s\-%]""").split(jumps)
-    for (fragment in fragments)
+    for (fragment in fragments) {
         if (fragment.isNotEmpty() && fragment.toInt() > result)
             result = fragment.toInt()
+    }
     return result
 }
 
@@ -218,18 +244,19 @@ fun mostExpensive(description: String): String = TODO()
  * Вернуть -1, если roman не является корректным римским числом
  */
 fun fromRoman(roman: String): Int {
-    val Normal = listOf(900, 400, 90, 40, 9, 4, 1, 5, 10, 50, 100, 500, 1000)
-    val Roman = listOf("CM", "CD", "XC", "XL", "IX", "IV", "I", "V", "X", "L", "C", "D", "M")
-    var number = roman
+    val russian = listOf(900, 400, 90, 40, 9, 4, 1, 5, 10, 50, 100, 500, 1000)
+    val normal = listOf("CM", "CD", "XC", "XL", "IX", "IV", "I", "V", "X", "L", "C", "D", "M")
+    if (normal.contains(roman)) return russian[normal.indexOf(roman)]
+    var number = StringBuilder(roman)
     var result = 0
     if (number.isEmpty()) return -1
-    for (i in Roman.indices) {
+    for (i in normal.indices) {
         var s = 0
-        while (number.contains(Roman[i])) {
+        while (number.contains(normal[i])) {
             s += 1
-            number = number.replaceFirst(Roman[i], "")
+            number = number.delete(number.indexOf(normal[i]), number.indexOf(normal[i]) + normal[i].length)
         }
-        result += Normal[i] * s
+        result += russian[i] * s
     }
     return if (result == 0 || number.isNotEmpty()) -1 else
         result
@@ -273,4 +300,23 @@ fun fromRoman(roman: String): Int {
  *
  */
 fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> = TODO()
+
+
+fun Neighbor(addresses: List<String>, person: String): List<String> {
+    for (i in addresses)
+        if (!i.contains("улица") || !i.contains("кв.") || !i.contains(":") || !i.contains((Regex("""\d+"""))))
+            throw IllegalArgumentException()
+    var result = mutableListOf<String>()
+    var address = ""
+    for (i in addresses) {
+        if (i.substringBefore(":") == person) {
+            address = i.substringAfter(":").substringBeforeLast(",")
+            for (j in addresses)
+                if (j.substringAfter(":").contains(address) && j.substringBefore(":") != person)
+                    result.add(j.substringBefore(":"))
+        }
+        return result
+    }
+    return result
+}
 
