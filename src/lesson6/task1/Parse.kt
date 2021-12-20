@@ -101,7 +101,7 @@ fun dateDigitToStr(digital: String): String {
     println(parts[1])
     println(parts[2])
     if (!digital.matches("""\d+\.\d+\.\d+""".toRegex())) return ""
-    if (parts[0].toInt() >= 32 || (parts[1] == "02" && parts[0].toInt() >= 29) || parts[1] == "00")
+    if (parts[0].toInt() >= 32 || (parts[1] == "02" && parts[0].toInt() >= 29) || parts[1] == "00" || parts[1].toInt() >= 13)
         return ""
     var result = StringBuilder()
     result.append(parts[0].toInt())
