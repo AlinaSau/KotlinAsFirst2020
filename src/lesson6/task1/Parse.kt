@@ -95,35 +95,7 @@ fun dateStrToDigit(str: String): String = TODO()
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String {
-    var parts = digital.split(".")
-    if (!digital.matches("""\d+\.\d+\.\d+""".toRegex())) return ""
-    if (parts[1].toInt() == 2 && parts[2].toInt() / 4 != 0 && parts[0].toInt() >= 29) return ""
-    if (((parts[1].toInt() % 2 == 1 || parts[1].toInt() == 12 || parts[1].toInt() == 10 || parts[1].toInt() == 8 &&
-                parts[1].toInt() != 11 && parts[1].toInt() != 9 && parts[1].toInt() != 2) && parts[0].toInt() >= 32) ||
-        ((parts[1].toInt() != 12 && parts[1].toInt() != 10 && parts[1].toInt() != 8 && parts[1].toInt() != 2 && parts[1].toInt() % 2 == 0 ||
-                parts[1].toInt() == 9 || parts[1].toInt() == 11) && parts[0].toInt() >= 31)
-    ) return ""
-    if (parts[0].toInt() >= 32 || parts[1] == "00" || parts[1].toInt() >= 13)
-        return ""
-    var result = StringBuilder()
-    result.append(parts[0].toInt())
-    when {
-        parts[1] == "01" -> result.append(" января ", parts[2])
-        parts[1] == "02" -> result.append(" февраля ", parts[2])
-        parts[1] == "03" -> result.append(" марта ", parts[2])
-        parts[1] == "04" -> result.append(" апреля ", parts[2])
-        parts[1] == "05" -> result.append(" мая ", parts[2])
-        parts[1] == "06" -> result.append(" июня ", parts[2])
-        parts[1] == "07" -> result.append(" июля ", parts[2])
-        parts[1] == "08" -> result.append(" августа ", parts[2])
-        parts[1] == "09" -> result.append(" сентября ", parts[2])
-        parts[1] == "10" -> result.append(" октября ", parts[2])
-        parts[1] == "11" -> result.append(" ноября ", parts[2])
-        parts[1] == "12" -> result.append(" декабря ", parts[2])
-    }
-    return result.toString()
-}
+fun dateDigitToStr(digital: String): String = TODO()
 
 /**
  * Средняя (4 балла)
@@ -140,7 +112,7 @@ fun dateDigitToStr(digital: String): String {
  * PS: Дополнительные примеры работы функции можно посмотреть в соответствующих тестах.
  */
 fun flattenPhoneNumber(phone: String): String {
-    if (phone.contains(Regex("""\( *\)""")) ||
+    if (phone.matches(Regex("""\( *\)""")) ||
         phone.matches(Regex("""\+ ?\d""")) ||
         !phone.matches(Regex("""(\+? *\d[- \d]*(\([-\d ]+\)[-\d ]+)?)"""))
     ) return ""
@@ -163,10 +135,10 @@ fun bestLongJump(jumps: String): Int {
         jumps.contains(Regex("""([%\-])(%|-|\d)|(%|-|\d)([%\-])"""))
     )
         return -1
-    val fragments = Regex("""[\s\-%]""").split(jumps)
-    for (fragment in fragments) {
-        if (fragment.isNotEmpty() && fragment.toInt() > result)
-            result = fragment.toInt()
+    val parts = Regex("""[\s\-%]""").split(jumps)
+    for (part in parts) {
+        if (part.isNotEmpty() && part.toInt() > result)
+            result = part.toInt()
     }
     return result
 }
@@ -182,7 +154,24 @@ fun bestLongJump(jumps: String): Int {
  * При нарушении формата входной строки, а также в случае отсутствия удачных попыток,
  * вернуть -1.
  */
-fun bestHighJump(jumps: String): Int = TODO()
+fun bestHighJump(jumps: String): Int {
+    if (
+        jumps.contains(Regex("""[^\d\s\-%+]""")) ||
+        jumps.contains(Regex("""(([%\-+])(\d))|((\d)([%\-+]))"""))
+    )
+        return -1
+    var max = -1
+    val successJump =
+        Regex("""\d+""").findAll(
+            Regex("""\d+ [-%]*\+""").findAll(jumps).map
+            { it.groupValues[0] }.joinToString()
+        ).map { it.groupValues[0] }.joinToString()
+    val parts = Regex(""", """).split(successJump)
+    for (i in parts.indices)
+        if (parts[i].isNotBlank() && parts[i].toInt() > max)
+            max = parts[i].toInt()
+    return max
+}
 
 /**
  * Сложная (6 баллов)
