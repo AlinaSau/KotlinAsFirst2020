@@ -210,8 +210,7 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean {
     if (word.equals(chars)) return true
     val list = mutableListOf<Char>()
     for (i in word) list.add(i)
-    for (i in chars) while (list.contains(i)) list.remove(i)
-    return list.isEmpty()
+    return list.distinct().sorted() == chars.sorted()
 }
 
 
