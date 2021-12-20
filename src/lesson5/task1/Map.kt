@@ -209,11 +209,10 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean
     if (word == "") return true
     if (chars.isEmpty() && word.isEmpty()) return true
     if (chars.isEmpty() || word.isEmpty()) return false
-    if (chars.size > 1 && chars.sorted().size == 1) return false
-    if (word.equals(chars[0]) && chars.size == 1) return true
+    if (word.equals(chars[0]) && (chars.size == 1 || chars.distinct().size == 1)) return true
     val list = mutableListOf<Char>()
     for (i in word) list.add(i)
-    return list.distinct().sorted() == chars.sorted()
+    return list.distinct().sorted() == chars.distinct().sorted()
 }
 
 
