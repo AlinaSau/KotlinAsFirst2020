@@ -207,7 +207,7 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
 fun canBuildFrom(chars: List<Char>, word: String): Boolean {
     if (word == "") return true
     if (chars.isEmpty() || word.isEmpty()) return false
-    if (word.equals(chars[0])) return true
+    if (word.equals(chars[0]) && chars.size == 1) return true
     val first = chars[0]
     if (chars.size > 1 && chars.sorted().size == 1) return false
     val list = mutableListOf<Char>()
