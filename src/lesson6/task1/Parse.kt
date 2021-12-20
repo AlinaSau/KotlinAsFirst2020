@@ -101,7 +101,7 @@ fun dateDigitToStr(digital: String): String {
     if (((parts[1].toInt() % 2 == 1 || parts[1].toInt() == 12 || parts[1].toInt() == 10 || parts[1].toInt() == 8 &&
                 parts[1].toInt() != 11 && parts[1].toInt() != 9) && parts[0].toInt() >= 32) ||
         ((parts[1].toInt() != 12 && parts[1].toInt() != 10 && parts[1].toInt() != 8 && parts[1].toInt() % 2 == 0 ||
-                parts[1].toInt() == 9 || parts[1].toInt() == 10) && parts[0].toInt() >= 31)
+                parts[1].toInt() == 9 || parts[1].toInt() == 11) && parts[0].toInt() >= 31)
     ) return ""
     if (parts[0].toInt() >= 32 || (parts[1] == "02" && parts[0].toInt() >= 29) || parts[1] == "00" || parts[1].toInt() >= 13)
         return ""
