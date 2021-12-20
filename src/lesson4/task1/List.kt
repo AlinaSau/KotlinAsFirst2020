@@ -281,4 +281,107 @@ fun roman(n: Int): String {
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
+fun russian(n: Int): String {
+    val units = listOf(
+        "",
+        "один",
+        "два",
+        "три",
+        "четыре",
+        "пять",
+        "шесть",
+        "семь",
+        "восемь",
+        "девять"
+    )
+
+    val hundreds = listOf(
+        "",
+        "сто",
+        "двести",
+        "триста",
+        "четыреста",
+        "пятьсот",
+        "шестьсот",
+        "семьсот",
+        "восемьсот",
+        "девятьсот"
+    )
+
+    fun decades(n: Int, last: Int): String = if (n == 1) {
+        val dict = listOf(
+            "",
+            "десять",
+            "одиннадцать",
+            "двенадцать",
+            "тринадцать",
+            "четырнадцать",
+            "пятнадцать",
+            "шестнадцать",
+            "семнадцать",
+            "восемнадцать",
+            "девятнадцать"
+        )
+        dict[last]
+    } else {
+        val dict = listOf(
+            "",
+            "",
+            "двадцать",
+            "тридцать",
+            "сорок",
+            "пятьдесят",
+            "шестьдесят",
+            "семьдесят",
+            "восемьдесят",
+            "девяносто"
+        )
+        dict[n]
+    }
+
+    fun thousands(n: Int): String {
+        var str = ""
+        val last = n % 10
+        if (n % 100 / 10 != 1) {
+            str += when (last) {
+                in 2..4 -> {
+                    val dict = listOf(
+                        "",
+                        "две",
+                        "три",
+                        "четыре"
+                    )
+                    dict[last - 1] + " тысячи"
+                }
+                in 5..9 -> units[last] + " тысяч"
+                1 -> "одна тысяча"
+                else -> "тысяч"
+            }
+        } else {
+            str += decades(1, last + 1) + " тысяч"
+        }
+        val strk = (hundreds[n / 100] + " " + decades(n % 100 / 10, 0) + " ").trim()
+        return ("$strk $str").trim()
+    }
+
+    var num = n
+    val words = mutableListOf<String>()
+    var count = 1
+    var last = 0
+    while (num > 0) {
+        val temp = num % 10
+        if ((count == 1) && ((num % 100 <= 9) || (num % 100 >= 20)) && (temp != 0)) words.add(units[temp])
+        if ((count == 2) && (temp != 0)) words.add(decades(temp, last + 1))
+        if ((count == 3) && (temp != 0)) words.add(hundreds[temp])
+        if ((count > 3) && (n != 0)) {
+            words.add(thousands(num))
+            break
+        }
+        last = temp
+        count += 1
+        num /= 10
+    }
+    words.reverse()
+    val str = words.toString().removeSurrounding("[", "]")
+    return str.filter { it !in "," }
+}
